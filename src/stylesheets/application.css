@@ -13,4 +13,7 @@ footer
   background-color: black;
   color: white;
 }
-/* TODO */
+#myForm
+{
+  margin-bottom: 2rem;
+}

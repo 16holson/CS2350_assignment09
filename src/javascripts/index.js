@@ -8,10 +8,10 @@ require.context('../stylesheets/', true, /\.(css|scss)$/i)
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function displayCard(c) //HTML added to #cards
+function displayCard(c)
 {
     return `
-    <div class="card">
+    <div class="card" data-title="${c.title}">
         <img src="${c.poster}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">${c.title}</h5>
@@ -23,7 +23,8 @@ function displayCard(c) //HTML added to #cards
     </div>
     `;
 }
-function displayCards() //Display the added cards
+
+function displayCards()
 {
     let cards = JSON.parse(localStorage.getItem('cards') || '[]');
     document.querySelector('#cards').innerHTML = '';
@@ -42,9 +43,9 @@ function displayCards() //Display the added cards
             let ndx = -1;
             for(let i in cards)
             {
-                if(cards[i].title == event.target.closest('card').dataset.title)
+                if(cards[i].title == event.target.closest('.card').dataset.title)
                 {
-                    ndx = 1;
+                    ndx = i;
                     break;
                 }
             }
@@ -58,7 +59,7 @@ function displayCards() //Display the added cards
     })
 }
 
-function addNewCard(event) // populates card with inputed data
+function addNewCard(event) 
 {
     if(event)
     {
@@ -75,9 +76,8 @@ function addNewCard(event) // populates card with inputed data
     {
         let card = {title: t, description: d, poster: p, author: a, publication: pd};
         cards.push(card);
-        localStoragel.setItem('cards', JSON.stringify(cards));
+        localStorage.setItem('cards', JSON.stringify(cards));
     }
-
     this.reset();
     displayCards();
 }
